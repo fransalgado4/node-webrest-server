@@ -9,7 +9,7 @@ export class TodosRoutes {
     router.get("/", todosController.getTodos);
     router.get("/:id", todosController.getTodo);
     router.post("/", todosController.createTodo);
-    router.put("/", todosController.updateTodo);
+    router.put("/:id", todosController.updateTodo);
     router.delete("/:id", todosController.deleteTodo);
 
     return router;
