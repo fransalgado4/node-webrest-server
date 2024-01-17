@@ -1,4 +1,5 @@
 import express, { Router } from "express";
+import compression from "compression";
 import path from "path";
 
 interface Options {
@@ -21,13 +22,18 @@ export class Server {
   }
 
   async start() {
+    //*Middlewares
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
+    this.app.use(compression());
 
+    //*Public Folder
     this.app.use(express.static(this.publicPath));
 
+    //*Routes
     this.app.use(this.routes);
 
+    //*SPA
     this.app.get("*", (req, res) => {
       const indexPath = path.join(
         __dirname + `../../../${this.publicPath}/index.html`
